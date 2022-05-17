@@ -42,9 +42,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="452" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-              <Component id="custom" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="98" max="32767" attributes="0"/>
+              <EmptySpace pref="192" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,11 +52,6 @@
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="339" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-              <Component id="custom" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -100,10 +93,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="custom">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Custom"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

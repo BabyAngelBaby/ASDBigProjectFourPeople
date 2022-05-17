@@ -14,7 +14,6 @@ import javax.swing.JTable;
 public class Dapur extends javax.swing.JFrame {
     
     protected static Dapur dapur;
-    protected JLabel customLabel;
     protected JTable dapurTabel;
 
     /**
@@ -23,7 +22,6 @@ public class Dapur extends javax.swing.JFrame {
     public Dapur() {
         initComponents();
         dapur = this;
-        customLabel = custom;
         dapurTabel = jTable1;
     }
 
@@ -38,7 +36,6 @@ public class Dapur extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        custom = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Dapur");
@@ -73,8 +70,6 @@ public class Dapur extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        custom.setText("Custom");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,9 +77,7 @@ public class Dapur extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(custom)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,10 +85,6 @@ public class Dapur extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(custom)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("Dapur");
@@ -140,7 +129,6 @@ public class Dapur extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel custom;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

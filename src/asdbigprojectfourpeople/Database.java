@@ -26,30 +26,20 @@ public class Database extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Database");
         setLocation(new java.awt.Point(696, 0));
         setPreferredSize(new java.awt.Dimension(666, 768));
 
-        jLabel1.setText("Database");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(jLabel1)
-                .addContainerGap(227, Short.MAX_VALUE))
+            .addGap(0, 444, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jLabel1)
-                .addContainerGap(404, Short.MAX_VALUE))
+            .addGap(0, 543, Short.MAX_VALUE)
         );
 
         pack();
@@ -92,6 +82,5 @@ public class Database extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
