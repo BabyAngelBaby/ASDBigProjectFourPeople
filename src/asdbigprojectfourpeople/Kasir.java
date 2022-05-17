@@ -105,7 +105,7 @@ public class Kasir extends javax.swing.JFrame {
         String nama = inputNamaKasir.getText();
         String jumlah = inputJumlahOrangKasir.getText();
         
-        Object[] row = {nama, jumlah};
+        String[] row = {nama, jumlah};
 
         DefaultTableModel model = (DefaultTableModel) Dapur.dapur.dapurTabel.getModel();
 

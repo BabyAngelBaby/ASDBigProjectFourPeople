@@ -4,15 +4,19 @@
  */
 package asdbigprojectfourpeople;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author julio
  */
 public class Dapur extends javax.swing.JFrame {
-    
+
     protected static Dapur dapur;
     protected JTable dapurTabel;
 
@@ -36,6 +40,7 @@ public class Dapur extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        buttonPopDapur = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Dapur");
@@ -70,6 +75,13 @@ public class Dapur extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        buttonPopDapur.setText("Done");
+        buttonPopDapur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPopDapurActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,7 +89,9 @@ public class Dapur extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(buttonPopDapur)
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,6 +99,10 @@ public class Dapur extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(buttonPopDapur)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("Dapur");
@@ -92,6 +110,28 @@ public class Dapur extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonPopDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopDapurActionPerformed
+        // TODO add your handling code here:
+        List<String> numdata = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) dapurTabel.getModel();
+//        for (int count = 0; count < model.getRowCount(); count++) {
+//            List<String> temp = new ArrayList<>();
+//            for (int kolom = 0; kolom < model.getColumnCount(); kolom++) {
+//                temp.add(model.getValueAt(count, kolom).toString());
+//            }
+//            numdata.add(temp.toString());
+//        }
+
+//        System.out.println(numdata);
+
+        String[] topPesanan = {model.getValueAt(0,0).toString(), model.getValueAt(0,1).toString()};
+
+        DefaultTableModel dbModel = (DefaultTableModel) Database.db.dbTabel.getModel();
+
+        dbModel.addRow(topPesanan);
+
+    }//GEN-LAST:event_buttonPopDapurActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,6 +169,7 @@ public class Dapur extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonPopDapur;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
