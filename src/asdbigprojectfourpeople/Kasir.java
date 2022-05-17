@@ -4,6 +4,9 @@
  */
 package asdbigprojectfourpeople;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author julio
@@ -100,6 +103,17 @@ public class Kasir extends javax.swing.JFrame {
 
     private void addButtonToDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonToDapurActionPerformed
         // TODO add your handling code here:
+        Dapur.dapur.customLabel.setText(inputNamaKasir.getText());
+        String nama = inputNamaKasir.getText();
+        String jumlah = inputJumlahOrangKasir.getText();
+
+        Object[] row = {nama, jumlah};
+
+        DefaultTableModel model = (DefaultTableModel) Dapur.dapur.dapurTabel.getModel();
+
+        model.addRow(row);
+
+        // clear the entries.
     }//GEN-LAST:event_addButtonToDapurActionPerformed
 
     /**
