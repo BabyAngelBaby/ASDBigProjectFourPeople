@@ -39,13 +39,13 @@ public class Kasir extends javax.swing.JFrame {
         labelMakanKasir = new javax.swing.JLabel();
         comboBoxMakanKasir = new javax.swing.JComboBox<>();
         labelCatatanKasir = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        textAreaCatatanKasir = new javax.swing.JTextArea();
+        inputCatatanSingkatKasir = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kasir (Main)");
+        setPreferredSize(new java.awt.Dimension(700, 354));
 
-        inputIdPesananKasir.setText("ID Pesanan");
+        inputIdPesananKasir.setText("Nama Pesanan");
 
         addButtonToDapur.setText("Add");
         addButtonToDapur.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +63,7 @@ public class Kasir extends javax.swing.JFrame {
             }
         });
 
-        labelJenisBayarKasir.setText("Jenis Pembayaran");
+        labelJenisBayarKasir.setText("Metode Pembayaran");
 
         comboBoxJenisBayarKasir.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Gopay", "Shopeepay" }));
 
@@ -71,11 +71,13 @@ public class Kasir extends javax.swing.JFrame {
 
         comboBoxMakanKasir.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tempat", "Bawa Pulang" }));
 
-        labelCatatanKasir.setText("Catatan");
+        labelCatatanKasir.setText("Catatan Singkat");
 
-        textAreaCatatanKasir.setColumns(20);
-        textAreaCatatanKasir.setRows(5);
-        jScrollPane1.setViewportView(textAreaCatatanKasir);
+        inputCatatanSingkatKasir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputCatatanSingkatKasirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,15 +97,15 @@ public class Kasir extends javax.swing.JFrame {
                             .addComponent(labelMakanKasir)
                             .addComponent(labelCatatanKasir))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputNamaKasir, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inputNamaKasir, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(comboBoxIdPesananKasir, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboBoxJenisBayarKasir, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboBoxMakanKasir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addButtonToDapur))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                            .addComponent(addButtonToDapur)
+                            .addComponent(inputCatatanSingkatKasir))))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,10 +130,10 @@ public class Kasir extends javax.swing.JFrame {
                         .addComponent(inputNamaKasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(121, 121, 121)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCatatanKasir)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(inputCatatanSingkatKasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(89, 89, 89)
                 .addComponent(addButtonToDapur)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -141,20 +143,22 @@ public class Kasir extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //======================================================================================================================================================
     // buat pesanan dari myQueue dengan size 99 dan size dalemny 5
     // ingat ini array 2 dimensi
     public static MyQueue pesanan = new MyQueue(99, 5);
     
+    // SAAT TOMBOL ADD DI KLIK MAKA AKAN DILAKUKAN DI BAWAH INI
     private void addButtonToDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonToDapurActionPerformed
         // ambil inputan mulai dari nama sampe catatan
         String nama = inputNamaKasir.getText();
-        String idPesanan = "" + comboBoxIdPesananKasir.getSelectedIndex();
-        String jenisPemayaran = "" + comboBoxJenisBayarKasir.getSelectedIndex();
-        String makanDi = "" + comboBoxMakanKasir.getSelectedIndex();
-        String catatan = textAreaCatatanKasir.getText();
+        String namaPesanan = Util.namaPesanan("" + comboBoxIdPesananKasir.getSelectedIndex());
+        String metodePembayaran = Util.metodePembaaran(""+comboBoxJenisBayarKasir.getSelectedIndex());
+        String makanDi = Util.makanDi("" + comboBoxMakanKasir.getSelectedIndex());
+        String catatan = inputCatatanSingkatKasir.getText();
         
         // ubah data di atas jadi array of string
-        String[] newRow = new String[]{nama,idPesanan,jenisPemayaran,makanDi,catatan};
+        String[] newRow = new String[]{nama,namaPesanan,metodePembayaran,makanDi,catatan};
         
         // input newRow ke pesanan yang sifatnya global
         pesanan.endQueue(newRow);
@@ -168,12 +172,16 @@ public class Kasir extends javax.swing.JFrame {
         comboBoxIdPesananKasir.setSelectedIndex(0);
         comboBoxJenisBayarKasir.setSelectedIndex(0);
         comboBoxMakanKasir.setSelectedIndex(0);
-        textAreaCatatanKasir.setText("");
+        inputCatatanSingkatKasir.setText("");
     }//GEN-LAST:event_addButtonToDapurActionPerformed
 
     private void comboBoxIdPesananKasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIdPesananKasirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxIdPesananKasirActionPerformed
+
+    private void inputCatatanSingkatKasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputCatatanSingkatKasirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputCatatanSingkatKasirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,14 +225,13 @@ public class Kasir extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxIdPesananKasir;
     private javax.swing.JComboBox<String> comboBoxJenisBayarKasir;
     private javax.swing.JComboBox<String> comboBoxMakanKasir;
+    private javax.swing.JTextField inputCatatanSingkatKasir;
     private javax.swing.JLabel inputIdPesananKasir;
     private javax.swing.JTextField inputNamaKasir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelCatatanKasir;
     private javax.swing.JLabel labelJenisBayarKasir;
     private javax.swing.JLabel labelMakanKasir;
     private javax.swing.JLabel labelNamaKasir;
-    private javax.swing.JTextArea textAreaCatatanKasir;
     // End of variables declaration//GEN-END:variables
 }
