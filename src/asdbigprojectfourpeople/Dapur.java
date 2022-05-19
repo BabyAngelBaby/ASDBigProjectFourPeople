@@ -112,7 +112,6 @@ public class Dapur extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPopDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopDapurActionPerformed
-        // TODO add your handling code here:
         List<String> numdata = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) dapurTabel.getModel();
 //        for (int count = 0; count < model.getRowCount(); count++) {
@@ -130,6 +129,8 @@ public class Dapur extends javax.swing.JFrame {
         DefaultTableModel dbModel = (DefaultTableModel) Database.db.dbTabel.getModel();
 
         dbModel.addRow(topPesanan);
+        
+        model.removeRow(0);
 
     }//GEN-LAST:event_buttonPopDapurActionPerformed
 
