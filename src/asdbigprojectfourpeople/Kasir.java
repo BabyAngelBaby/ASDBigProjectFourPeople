@@ -4,6 +4,8 @@
  */
 package asdbigprojectfourpeople;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -133,9 +135,9 @@ public class Kasir extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCatatanKasir)
                     .addComponent(inputCatatanSingkatKasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89)
+                .addGap(45, 45, 45)
                 .addComponent(addButtonToDapur)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -147,32 +149,43 @@ public class Kasir extends javax.swing.JFrame {
     // buat pesanan dari myQueue dengan size 99 dan size dalemny 5
     // ingat ini array 2 dimensi
     public static MyQueue pesanan = new MyQueue(99, 5);
-    
+
     // SAAT TOMBOL ADD DI KLIK MAKA AKAN DILAKUKAN DI BAWAH INI
     private void addButtonToDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonToDapurActionPerformed
         // ambil inputan mulai dari nama sampe catatan
         String nama = inputNamaKasir.getText();
         String namaPesanan = Util.namaPesanan("" + comboBoxIdPesananKasir.getSelectedIndex());
-        String metodePembayaran = Util.metodePembaaran(""+comboBoxJenisBayarKasir.getSelectedIndex());
+        String metodePembayaran = Util.metodePembaaran("" + comboBoxJenisBayarKasir.getSelectedIndex());
         String makanDi = Util.makanDi("" + comboBoxMakanKasir.getSelectedIndex());
         String catatan = inputCatatanSingkatKasir.getText();
-        
-        // ubah data di atas jadi array of string
-        String[] newRow = new String[]{nama,namaPesanan,metodePembayaran,makanDi,catatan};
-        
-        // input newRow ke pesanan yang sifatnya global
-        pesanan.endQueue(newRow);
-        
-        // newRow tadi tampilin di tabel pada Dapur
-        DefaultTableModel model = (DefaultTableModel) Dapur.dapur.dapurTabel.getModel();
-        model.addRow(newRow);
-        
-        // kosongin inputan
-        inputNamaKasir.setText("");
-        comboBoxIdPesananKasir.setSelectedIndex(0);
-        comboBoxJenisBayarKasir.setSelectedIndex(0);
-        comboBoxMakanKasir.setSelectedIndex(0);
-        inputCatatanSingkatKasir.setText("");
+
+        if (nama.equalsIgnoreCase(""))
+            JOptionPane.showMessageDialog(rootPane, "Nama Mohon Diisi", "Error", HEIGHT);
+        else if (catatan.equalsIgnoreCase(""))
+            JOptionPane.showMessageDialog(rootPane, "Catatan Mohon Diisi", "Error", HEIGHT);
+        else if (catatan.length() > 20)
+            JOptionPane.showMessageDialog(rootPane, "Banyak Karakter Pada Catatan Jangan Lebih Dari 20", "Error", HEIGHT);
+        else {
+            // ubah data di atas jadi array of string
+            String[] newRow = new String[]{nama, namaPesanan, metodePembayaran, makanDi, catatan};
+
+            // input newRow ke pesanan yang sifatnya global
+            pesanan.endQueue(newRow);
+
+            // newRow tadi tampilin di tabel pada Dapur
+            DefaultTableModel model = (DefaultTableModel) Dapur.dapur.dapurTabel.getModel();
+            model.addRow(newRow);
+
+            // kosongin inputan
+            inputNamaKasir.setText("");
+            comboBoxIdPesananKasir.setSelectedIndex(0);
+            comboBoxJenisBayarKasir.setSelectedIndex(0);
+            comboBoxMakanKasir.setSelectedIndex(0);
+            inputCatatanSingkatKasir.setText("");
+
+            // tampilan data berhasil di add pada dapur
+            JOptionPane.showMessageDialog(rootPane, "Data Berhasil Masuk Ke Dapur", "Success",JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_addButtonToDapurActionPerformed
 
     private void comboBoxIdPesananKasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIdPesananKasirActionPerformed
