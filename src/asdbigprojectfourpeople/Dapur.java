@@ -5,9 +5,11 @@
 package asdbigprojectfourpeople;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -88,22 +90,23 @@ public class Dapur extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(buttonPopDapur)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(buttonPopDapur)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(buttonPopDapur)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -111,26 +114,33 @@ public class Dapur extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // DATA YANG AKAN DIAKSES DAN DIMODIF DI DB
+    public static MyDataDatabase dataInDatabase = new MyDataDatabase(99,7);
+    
     private void buttonPopDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopDapurActionPerformed
-        List<String> numdata = new ArrayList<>();
-        DefaultTableModel model = (DefaultTableModel) dapurTabel.getModel();
-//        for (int count = 0; count < model.getRowCount(); count++) {
-//            List<String> temp = new ArrayList<>();
-//            for (int kolom = 0; kolom < model.getColumnCount(); kolom++) {
-//                temp.add(model.getValueAt(count, kolom).toString());
-//            }
-//            numdata.add(temp.toString());
-//        }
+        //String[] topPesanan = {model.getValueAt(0,0).toString(), model.getValueAt(0,1).toString()};
 
-//        System.out.println(numdata);
-
-        String[] topPesanan = {model.getValueAt(0,0).toString(), model.getValueAt(0,1).toString()};
-
-        DefaultTableModel dbModel = (DefaultTableModel) Database.db.dbTabel.getModel();
-
-        dbModel.addRow(topPesanan);
+        // masukin temp data pesanan yang duluan masuk
+        String[] temp = Kasir.pesanan.dequeque();
         
+        // push ke database tapi bentukny ms agar mudah sorting
+        dataInDatabase.push(new String[]{temp[0],temp[1], temp[2],temp[3], Util.hargaModalDariNamaPesanan(temp[1]),Util.hargaDariNamaPesanan(temp[1]),temp[4], temp[5]});
+        
+        // convert ms to date
+        long ms = Long.valueOf(temp[5]);
+        Date date = new Date(ms);
+        String waktu = ""+date;
+        
+        // ambil tabel dari db lalu tambahin di barisny itu pesanan yang di dequeue atau pop
+        DefaultTableModel dbModel = (DefaultTableModel) Database.db.dbTabel.getModel();
+        dbModel.addRow(new String[]{temp[0],temp[1], temp[2],temp[3], Util.hargaModalDariNamaPesanan(temp[1]),Util.hargaDariNamaPesanan(temp[1]),temp[4], waktu});
+        
+        // hilangin data pada baris teratas
+        DefaultTableModel model = (DefaultTableModel) dapurTabel.getModel();
         model.removeRow(0);
+        
+        // beritahu ke dapur bahwa data berhasil di delete
+        JOptionPane.showMessageDialog(rootPane, "Data Berhasil Dicatat di Database");
 
     }//GEN-LAST:event_buttonPopDapurActionPerformed
 

@@ -4,6 +4,7 @@
  */
 package asdbigprojectfourpeople;
 
+import java.util.Date;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,10 @@ public class Kasir extends javax.swing.JFrame {
      */
     public Kasir() {
         initComponents();
+        
+        // ambil waktu open dari toko ini
+        Date now = new Date();
+        open = ""+now.getTime();
     }
 
     /**
@@ -148,7 +153,8 @@ public class Kasir extends javax.swing.JFrame {
     //======================================================================================================================================================
     // buat pesanan dari myQueue dengan size 99 dan size dalemny 5
     // ingat ini array 2 dimensi
-    public static MyQueue pesanan = new MyQueue(99, 5);
+    public static MyQueue pesanan = new MyQueue(99, 6);
+    public static String open;
 
     // SAAT TOMBOL ADD DI KLIK MAKA AKAN DILAKUKAN DI BAWAH INI
     private void addButtonToDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonToDapurActionPerformed
@@ -166,8 +172,12 @@ public class Kasir extends javax.swing.JFrame {
         else if (catatan.length() > 20)
             JOptionPane.showMessageDialog(rootPane, "Banyak Karakter Pada Catatan Jangan Lebih Dari 20", "Error", HEIGHT);
         else {
+            // make date in utc 
+            Date now = new Date();
+            String time = now.getTime() +  "";
+
             // ubah data di atas jadi array of string
-            String[] newRow = new String[]{nama, namaPesanan, metodePembayaran, makanDi, catatan};
+            String[] newRow = new String[]{nama, namaPesanan, metodePembayaran, makanDi, catatan, time};
 
             // input newRow ke pesanan yang sifatnya global
             pesanan.endQueue(newRow);
@@ -184,7 +194,7 @@ public class Kasir extends javax.swing.JFrame {
             inputCatatanSingkatKasir.setText("");
 
             // tampilan data berhasil di add pada dapur
-            JOptionPane.showMessageDialog(rootPane, "Data Berhasil Masuk Ke Dapur", "Success",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Data Berhasil Masuk Ke Dapur", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_addButtonToDapurActionPerformed
 

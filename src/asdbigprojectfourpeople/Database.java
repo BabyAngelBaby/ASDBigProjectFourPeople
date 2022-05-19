@@ -4,17 +4,31 @@
  */
 package asdbigprojectfourpeople;
 
+import java.util.Date;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.util.Arrays;
 
 /**
  *
  * @author julio
  */
 public class Database extends javax.swing.JFrame {
-    
+
     protected static Database db;
     protected JTable dbTabel;
+    protected static String[][] allData;
 
+    // NITIP
+//        for (int count = 0; count < model.getRowCount(); count++) {
+//            List<String> temp = new ArrayList<>();
+//            for (int kolom = 0; kolom < model.getColumnCount(); kolom++) {
+//                temp.add(model.getValueAt(count, kolom).toString());
+//            }
+//            numdata.add(temp.toString());
+//        }
+//        System.out.println(numdata);
+    // ===================================
     /**
      * Creates new form Dapur
      */
@@ -35,6 +49,10 @@ public class Database extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        comboBoxDB = new javax.swing.JComboBox<>();
+        labelSortByDB = new javax.swing.JLabel();
+        labelSearchDB = new javax.swing.JLabel();
+        inputSearchDB = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Database");
@@ -47,14 +65,14 @@ public class Database extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nama", "Pesanan", "Metode Bayar", "Makan di", "Modal", "Harga", "Catatan"
+                "Nama", "Pesanan", "Metode Bayar", "Makan di", "Modal", "Harga", "Catatan", "Time"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -68,25 +86,76 @@ public class Database extends javax.swing.JFrame {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
+        comboBoxDB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Time (oldest to newest)", "Time (newest to oldest)" }));
+        comboBoxDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxDBActionPerformed(evt);
+            }
+        });
+
+        labelSortByDB.setText("Sort By");
+
+        labelSearchDB.setText("Search");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(labelSearchDB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(inputSearchDB, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addComponent(labelSortByDB)
+                        .addGap(18, 18, 18)
+                        .addComponent(comboBoxDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelSortByDB)
+                    .addComponent(comboBoxDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSearchDB)
+                    .addComponent(inputSearchDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void comboBoxDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDBActionPerformed
+        // hilangin semua data atau barisan di database
+        DefaultTableModel modelTabelDB = (DefaultTableModel) dbTabel.getModel();
+        modelTabelDB.setRowCount(0);
+
+        // cek combo box diminta sorting bagaimana
+        int indexSorting = comboBoxDB.getSelectedIndex();
+
+        // sorting terlebih dahulu dataInDatabase
+        Dapur.dataInDatabase.sortingData(indexSorting);
+
+        // tampilin lagi data yang barusan diurutkan berdasarkan keinginan combo box
+        for (int i = 0; i < Dapur.dataInDatabase.getSize(); i++) {
+            String[] temp = Arrays.copyOf(Dapur.dataInDatabase.getData()[i], Dapur.dataInDatabase.getData()[i].length);
+            long ms = Long.valueOf(temp[7]);
+            Date date = new Date(ms);
+            String waktu = "" + date;
+            temp[7] = waktu;
+            modelTabelDB.addRow(temp);
+        }
+    }//GEN-LAST:event_comboBoxDBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,7 +194,11 @@ public class Database extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> comboBoxDB;
+    private javax.swing.JTextField inputSearchDB;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelSearchDB;
+    private javax.swing.JLabel labelSortByDB;
     // End of variables declaration//GEN-END:variables
 }
