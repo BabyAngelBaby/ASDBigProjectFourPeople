@@ -24,7 +24,7 @@ public class MyDataDatabase {
         if (index == 0) {
             for (int i = 0; i < size; i++) {
                 for (int j = i + 1; j < size; j++) {
-                    if (Long.valueOf(this.getData()[i][7]) > Long.valueOf(this.getData()[j][7])) {
+                    if (Long.valueOf(this.getData()[i][8]) > Long.valueOf(this.getData()[j][8])) {
                         String[] temp = data[j];
                         data[j] = data[i];
                         data[i] = temp;
@@ -34,7 +34,7 @@ public class MyDataDatabase {
         } else if (index == 1) {
             for (int i = 0; i < size; i++) {
                 for (int j = i + 1; j < size; j++) {
-                    if (Long.valueOf(this.getData()[i][7]) < Long.valueOf(this.getData()[j][7])) {
+                    if (Long.valueOf(this.getData()[i][8]) < Long.valueOf(this.getData()[j][8])) {
                         String[] temp = data[j];
                         data[j] = data[i];
                         data[i] = temp;
@@ -45,7 +45,7 @@ public class MyDataDatabase {
     }
     
     public String[][] searchData(String find) {
-        MyDataDatabase result = new MyDataDatabase(1,8);
+        MyDataDatabase result = new MyDataDatabase(1,9);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < data[i].length; j++) {
                 if (data[i][j].toLowerCase().contains(find.toLowerCase())) {

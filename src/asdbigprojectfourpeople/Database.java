@@ -64,14 +64,14 @@ public class Database extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nama", "Pesanan", "Metode Bayar", "Makan di", "Modal", "Harga", "Catatan", "Time"
+                "Nama", "Pesanan", "Metode Bayar", "Makan di", "Modal", "Harga", "Banyak", "Catatan", "Time"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -154,10 +154,10 @@ public class Database extends javax.swing.JFrame {
         // tampilin lagi data yang barusan diurutkan berdasarkan keinginan combo box
         for (int i = 0; i < Dapur.dataInDatabase.getSize(); i++) {
             String[] temp = Arrays.copyOf(Dapur.dataInDatabase.getData()[i], Dapur.dataInDatabase.getData()[i].length);
-            long ms = Long.valueOf(temp[7]);
+            long ms = Long.valueOf(temp[8]);
             Date date = new Date(ms);
             String waktu = "" + date;
-            temp[7] = waktu;
+            temp[8] = waktu;
             modelTabelDB.addRow(temp);
         }
     }//GEN-LAST:event_comboBoxDBActionPerformed

@@ -57,14 +57,14 @@ public class Dapur extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nama", "Nama Pesanan", "Metode Bayar", "Makan di", "Catatan"
+                "Nama", "Nama Pesanan", "Metode Bayar", "Makan di", "Banyak", "Catatan"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,7 +115,7 @@ public class Dapur extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // DATA YANG AKAN DIAKSES DAN DIMODIF DI DB
-    public static MyDataDatabase dataInDatabase = new MyDataDatabase(99,7);
+    public static MyDataDatabase dataInDatabase = new MyDataDatabase(99,8);
     
     private void buttonPopDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopDapurActionPerformed
         //String[] topPesanan = {model.getValueAt(0,0).toString(), model.getValueAt(0,1).toString()};
@@ -124,16 +124,16 @@ public class Dapur extends javax.swing.JFrame {
         String[] temp = Kasir.pesanan.dequeque();
         
         // push ke database tapi bentukny ms agar mudah sorting
-        dataInDatabase.push(new String[]{temp[0],temp[1], temp[2],temp[3], Util.hargaModalDariNamaPesanan(temp[1]),Util.hargaDariNamaPesanan(temp[1]),temp[4], temp[5]});
+        dataInDatabase.push(new String[]{temp[0],temp[1], temp[2],temp[3], Util.hargaModalDariNamaPesanan(temp[1]),Util.hargaDariNamaPesanan(temp[1]),temp[4], temp[5], temp[6]});
         
         // convert ms to date
-        long ms = Long.valueOf(temp[5]);
+        long ms = Long.valueOf(temp[6]);
         Date date = new Date(ms);
         String waktu = ""+date;
         
         // ambil tabel dari db lalu tambahin di barisny itu pesanan yang di dequeue atau pop
         DefaultTableModel dbModel = (DefaultTableModel) Database.db.dbTabel.getModel();
-        dbModel.addRow(new String[]{temp[0],temp[1], temp[2],temp[3], Util.hargaModalDariNamaPesanan(temp[1]),Util.hargaDariNamaPesanan(temp[1]),temp[4], waktu});
+        dbModel.addRow(new String[]{temp[0],temp[1], temp[2],temp[3], Util.hargaModalDariNamaPesanan(temp[1]),Util.hargaDariNamaPesanan(temp[1]),temp[4], temp[5], waktu});
         
         // hilangin data pada baris teratas
         DefaultTableModel model = (DefaultTableModel) dapurTabel.getModel();

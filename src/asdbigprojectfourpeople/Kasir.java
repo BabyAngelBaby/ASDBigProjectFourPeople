@@ -63,7 +63,7 @@ public class Kasir extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kasir (Main)");
-        setPreferredSize(new java.awt.Dimension(700, 354));
+        setPreferredSize(new java.awt.Dimension(700, 355));
         setSize(new java.awt.Dimension(700, 354));
 
         inputIdPesananKasir.setText("Nama Pesanan");
@@ -146,23 +146,23 @@ public class Kasir extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelTotalHargaKasir)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(inputNamaKasir, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                                .addComponent(inputNamaKasir)
                                 .addComponent(addButtonToDapur)
-                                .addComponent(inputCatatanSingkatKasir)
+                                .addComponent(inputCatatanSingkatKasir, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(comboBoxMakanKasir, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(comboBoxJenisBayarKasir, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(comboBoxIdPesananKasir, javax.swing.GroupLayout.Alignment.LEADING, 0, 222, Short.MAX_VALUE))
+                                        .addComponent(comboBoxIdPesananKasir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(labelHargaKasir)))
                             .addComponent(inputBanyakPesananKasir, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelNamaKasir)
@@ -194,11 +194,11 @@ public class Kasir extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCatatanKasir)
                     .addComponent(inputCatatanSingkatKasir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addButtonToDapur)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,7 +207,7 @@ public class Kasir extends javax.swing.JFrame {
     //======================================================================================================================================================
     // buat pesanan dari myQueue dengan size 99 dan size dalemny 5
     // ingat ini array 2 dimensi
-    public static MyQueue pesanan = new MyQueue(99, 6);
+    public static MyQueue pesanan = new MyQueue(99, 7);
     public static String open;
     
     private void tampilkanTotalHarga() {
@@ -244,6 +244,7 @@ public class Kasir extends javax.swing.JFrame {
         String metodePembayaran = Util.metodePembaaran("" + comboBoxJenisBayarKasir.getSelectedIndex());
         String makanDi = Util.makanDi("" + comboBoxMakanKasir.getSelectedIndex());
         String catatan = inputCatatanSingkatKasir.getText();
+        String banyakPesanan = inputBanyakPesananKasir.getText();
 
         if (nama.equalsIgnoreCase(""))
             JOptionPane.showMessageDialog(rootPane, "Nama Mohon Diisi", "Error", HEIGHT);
@@ -257,7 +258,7 @@ public class Kasir extends javax.swing.JFrame {
             String time = now.getTime() + "";
 
             // ubah data di atas jadi array of string
-            String[] newRow = new String[]{nama, namaPesanan, metodePembayaran, makanDi, catatan, time};
+            String[] newRow = new String[]{nama, namaPesanan, metodePembayaran, makanDi, banyakPesanan, catatan, time};
 
             // input newRow ke pesanan yang sifatnya global
             pesanan.endQueue(newRow);
