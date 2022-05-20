@@ -251,7 +251,7 @@ public class Kasir extends javax.swing.JFrame {
         // ambil inputan mulai dari nama sampe catatan
         String nama = inputNamaKasir.getText();
         String namaPesanan = Util.namaPesanan("" + comboBoxIdPesananKasir.getSelectedIndex());
-        String metodePembayaran = Util.metodePembaaran("" + comboBoxJenisBayarKasir.getSelectedIndex());
+        String metodePembayaran = Util.metodePembayaran("" + comboBoxJenisBayarKasir.getSelectedIndex());
         String makanDi = Util.makanDi("" + comboBoxMakanKasir.getSelectedIndex());
         String catatan = inputCatatanSingkatKasir.getText();
         String banyakPesanan = inputBanyakPesananKasir.getText();
