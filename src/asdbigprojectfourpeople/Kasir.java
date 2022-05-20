@@ -209,7 +209,17 @@ public class Kasir extends javax.swing.JFrame {
     // ingat ini array 2 dimensi
     public static MyQueue pesanan = new MyQueue(99, 7);
     public static String open;
-    
+
+    private boolean validasiInputanBanyak() {
+        String[] angka = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+        for (var an : angka) {
+            if (labelTotalHargaKasir.getText().contains(an)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void tampilkanTotalHarga() {
         // Validasi untuk nampilin Total Harga
         int banyakPesanan = 0;
@@ -220,19 +230,19 @@ public class Kasir extends javax.swing.JFrame {
             notInt = true;
         }
         long banyakPesananLong = 0;
-        if (!notInt) {
+        try {
             banyakPesananLong = inputBanyakPesananKasir.getText().equalsIgnoreCase("") ? 0 : Long.valueOf(inputBanyakPesananKasir.getText());
+        } catch (Exception e) {
         }
-        if (banyakPesananLong > Integer.MAX_VALUE )
+        if (banyakPesananLong > Integer.MAX_VALUE) {
             labelTotalHargaKasir.setText("Mohon Masukan Banyak Pesanan Yang Masuk Akal");
-        else if (notInt)
+        } else if (notInt) {
             labelTotalHargaKasir.setText("Mohon Hanya Masukkan Angka Pada Banyak Pesanan");
-        else {
+        } else {
             Locale indo = new Locale("id", "ID");
-            Currency rupiah = Currency.getInstance(indo);
             NumberFormat indoFormat = NumberFormat.getCurrencyInstance(indo);
-            String totalHarga = indoFormat.format(banyakPesanan * Integer.valueOf(Util.hargaDariNamaPesananReturnInt(Util.namaPesanan("" + comboBoxIdPesananKasir.getSelectedIndex()))));
-            labelTotalHargaKasir.setText(totalHarga.substring(0, (totalHarga.length() - 3) ) );
+            String totalHarga = indoFormat.format(banyakPesanan * Integer.valueOf(Util.hargaDariNamaPesananReturnInt(Util.namaPesanan("" + comboBoxIdPesananKasir.getSelectedIndex()))) );
+            labelTotalHargaKasir.setText(totalHarga.substring(0, (totalHarga.length() - 3)));
         }
     }
 
@@ -250,6 +260,8 @@ public class Kasir extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Nama Mohon Diisi", "Error", HEIGHT);
 //        else if (catatan.equalsIgnoreCase(""))
 //            JOptionPane.showMessageDialog(rootPane, "Catatan Mohon Diisi", "Error", HEIGHT);
+        else if (validasiInputanBanyak())
+            JOptionPane.showMessageDialog(rootPane, "Mohon Untuk Mengisi Inputan Banyak Pesanan Dengan Benar", "Error", HEIGHT);
         else if (catatan.length() > 20)
             JOptionPane.showMessageDialog(rootPane, "Banyak Karakter Pada Catatan Jangan Lebih Dari 20", "Error", HEIGHT);
         else {
@@ -273,6 +285,10 @@ public class Kasir extends javax.swing.JFrame {
             comboBoxJenisBayarKasir.setSelectedIndex(0);
             comboBoxMakanKasir.setSelectedIndex(0);
             inputCatatanSingkatKasir.setText("");
+            inputBanyakPesananKasir.setText("1");
+            
+            // jalankan tampilan harga
+            tampilkanTotalHarga();
 
             // tampilan data berhasil di add pada dapur
             JOptionPane.showMessageDialog(rootPane, "Data Berhasil Masuk Ke Dapur", "Success", JOptionPane.INFORMATION_MESSAGE);

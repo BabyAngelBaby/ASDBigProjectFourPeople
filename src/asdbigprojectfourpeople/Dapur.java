@@ -119,6 +119,9 @@ public class Dapur extends javax.swing.JFrame {
     
     private void buttonPopDapurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopDapurActionPerformed
         //String[] topPesanan = {model.getValueAt(0,0).toString(), model.getValueAt(0,1).toString()};
+        
+        // reset db dulu agar tampilan tidak kacau
+        Database.db.resetSearchAndSortDB();
 
         // masukin temp data pesanan yang duluan masuk
         String[] temp = Kasir.pesanan.dequeque();

@@ -53,6 +53,7 @@ public class Database extends javax.swing.JFrame {
         labelSortByDB = new javax.swing.JLabel();
         labelSearchDB = new javax.swing.JLabel();
         inputSearchDB = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Database");
@@ -96,9 +97,21 @@ public class Database extends javax.swing.JFrame {
 
         labelSearchDB.setText("Search");
 
+        inputSearchDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputSearchDBActionPerformed(evt);
+            }
+        });
         inputSearchDB.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 inputSearchDBKeyTyped(evt);
+            }
+        });
+
+        jButton1.setText("Reset");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -116,7 +129,9 @@ public class Database extends javax.swing.JFrame {
                         .addComponent(labelSearchDB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(inputSearchDB, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addComponent(labelSortByDB)
                         .addGap(18, 18, 18)
                         .addComponent(comboBoxDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,7 +146,8 @@ public class Database extends javax.swing.JFrame {
                     .addComponent(labelSortByDB)
                     .addComponent(comboBoxDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelSearchDB)
-                    .addComponent(inputSearchDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inputSearchDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -140,6 +156,33 @@ public class Database extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    protected void resetSearchAndSortDB() {
+        inputSearchDB.setText("");
+        
+        // ubah ke default dulu
+        comboBoxDB.setSelectedIndex(0);
+        
+        // hilangin semua data atau barisan di database
+        DefaultTableModel modelTabelDB = (DefaultTableModel) dbTabel.getModel();
+        modelTabelDB.setRowCount(0);
+
+        // cek combo box diminta sorting bagaimana
+        int indexSorting = comboBoxDB.getSelectedIndex();
+
+        // sorting terlebih dahulu dataInDatabase
+        Dapur.dataInDatabase.sortingData(indexSorting);
+
+        // tampilin lagi data yang barusan diurutkan berdasarkan keinginan combo box
+        for (int i = 0; i < Dapur.dataInDatabase.getSize(); i++) {
+            String[] temp = Arrays.copyOf(Dapur.dataInDatabase.getData()[i], Dapur.dataInDatabase.getData()[i].length);
+            long ms = Long.valueOf(temp[8]);
+            Date date = new Date(ms);
+            String waktu = "" + date;
+            temp[8] = waktu;
+            modelTabelDB.addRow(temp);
+        }
+    }
+    
     private void comboBoxDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDBActionPerformed
         // hilangin semua data atau barisan di database
         DefaultTableModel modelTabelDB = (DefaultTableModel) dbTabel.getModel();
@@ -172,10 +215,25 @@ public class Database extends javax.swing.JFrame {
         
         // tampilin data yang didapat dari search
         for (int i = 0; i < result.length; i++) {
-            String[] row = result[i];
+            String[] row = Arrays.copyOf(result[i], result[i].length);
+            try {
+                long ms = Long.valueOf(row[8]);
+                Date date = new Date(ms);
+                String waktu = "" + date;
+                row[8] = waktu;
+            } catch (Exception e) {
+            }
             modelTabelDB.addRow(row);
         }
     }//GEN-LAST:event_inputSearchDBKeyTyped
+
+    private void inputSearchDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSearchDBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputSearchDBActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        resetSearchAndSortDB();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,6 +274,7 @@ public class Database extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxDB;
     private javax.swing.JTextField inputSearchDB;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelSearchDB;
