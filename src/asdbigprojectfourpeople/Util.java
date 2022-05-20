@@ -39,6 +39,21 @@ public class Util {
         }
     }
     
+    public static int hargaDariNamaPesananReturnInt(String index) {
+        switch (index) {
+            case "Paket Keluarga":
+                return 120_000;
+            case "Paket Kombo":
+                return 150_000;
+            case "Paket Hemat":
+                return 78_000;
+            case "Paket Sultan":
+                return 220_000;
+            default:
+                return -1;
+        }
+    }
+    
     public static String hargaModalDariNamaPesanan(String index) {
         switch (index) {
             case "Paket Keluarga":
