@@ -77,6 +77,10 @@ public class Util {
                 return "Gopay";
             case 2:
                 return "Shopeepay";
+            case 3:
+                return "OVO";
+            case 4:
+                return "Debit";
             default:
                 return "null bois katek indexny";
         }
