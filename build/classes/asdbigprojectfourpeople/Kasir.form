@@ -7,6 +7,9 @@
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[700, 354]"/>
     </Property>
+    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[700, 354]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -45,13 +48,13 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="inputNamaKasir" pref="451" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="comboBoxIdPesananKasir" alignment="0" max="32767" attributes="0"/>
-                              <Component id="comboBoxJenisBayarKasir" alignment="0" max="32767" attributes="0"/>
-                              <Component id="comboBoxMakanKasir" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="addButtonToDapur" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="inputCatatanSingkatKasir" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="comboBoxMakanKasir" alignment="0" max="32767" attributes="0"/>
+                              <Component id="comboBoxJenisBayarKasir" alignment="0" max="32767" attributes="0"/>
+                              <Component id="comboBoxIdPesananKasir" alignment="0" pref="222" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -92,11 +95,11 @@
                   <Component id="labelCatatanKasir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="inputCatatanSingkatKasir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
               <Component id="addButtonToDapur" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

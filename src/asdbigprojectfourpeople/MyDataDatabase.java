@@ -48,7 +48,7 @@ public class MyDataDatabase {
         MyDataDatabase result = new MyDataDatabase(1,8);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < data[i].length; j++) {
-                if (data[i][j].contains(find)) {
+                if (data[i][j].toLowerCase().contains(find.toLowerCase())) {
                     result.push(data[i]);
                     break;
                 }
