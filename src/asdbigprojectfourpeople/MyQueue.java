@@ -35,7 +35,6 @@ public class MyQueue {
 
     public void endQueue(String[] data) { // insert data ke paling akhir barisan
         if (isEmpty()) {
-        	System.out.println("ab");
             this.depan = 0;
             this.belakang = 0;
             this.antrian[belakang] = data;

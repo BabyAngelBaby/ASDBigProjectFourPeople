@@ -57,7 +57,6 @@ public class Database extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Database");
         setLocation(new java.awt.Point(696, 0));
-        setPreferredSize(new java.awt.Dimension(666, 768));
         setSize(new java.awt.Dimension(666, 768));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -96,6 +95,12 @@ public class Database extends javax.swing.JFrame {
         labelSortByDB.setText("Sort By");
 
         labelSearchDB.setText("Search");
+
+        inputSearchDB.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputSearchDBKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,6 +161,21 @@ public class Database extends javax.swing.JFrame {
             modelTabelDB.addRow(temp);
         }
     }//GEN-LAST:event_comboBoxDBActionPerformed
+
+    private void inputSearchDBKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputSearchDBKeyTyped
+        // hilangin semua data atau barisan di database
+        DefaultTableModel modelTabelDB = (DefaultTableModel) dbTabel.getModel();
+        modelTabelDB.setRowCount(0);
+
+        // lakuin search data pada dataInDatabse
+        String[][] result = Dapur.dataInDatabase.searchData(inputSearchDB.getText());
+        
+        // tampilin data yang didapat dari search
+        for (int i = 0; i < result.length; i++) {
+            String[] row = result[i];
+            modelTabelDB.addRow(row);
+        }
+    }//GEN-LAST:event_inputSearchDBKeyTyped
 
     /**
      * @param args the command line arguments

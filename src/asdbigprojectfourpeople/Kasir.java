@@ -7,6 +7,7 @@ package asdbigprojectfourpeople;
 import java.util.Date;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,12 +15,17 @@ import javax.swing.table.DefaultTableModel;
  * @author julio
  */
 public class Kasir extends javax.swing.JFrame {
+    
+    protected static JRootPane kasirRootPane;
 
     /**
      * Creates new form Kasir
      */
     public Kasir() {
         initComponents();
+        
+        // akalin agar obj kasir bisa diakses dari tempat lain
+        kasirRootPane = this.rootPane;
         
         // ambil waktu open dari toko ini
         Date now = new Date();
@@ -167,8 +173,8 @@ public class Kasir extends javax.swing.JFrame {
 
         if (nama.equalsIgnoreCase(""))
             JOptionPane.showMessageDialog(rootPane, "Nama Mohon Diisi", "Error", HEIGHT);
-        else if (catatan.equalsIgnoreCase(""))
-            JOptionPane.showMessageDialog(rootPane, "Catatan Mohon Diisi", "Error", HEIGHT);
+//        else if (catatan.equalsIgnoreCase(""))
+//            JOptionPane.showMessageDialog(rootPane, "Catatan Mohon Diisi", "Error", HEIGHT);
         else if (catatan.length() > 20)
             JOptionPane.showMessageDialog(rootPane, "Banyak Karakter Pada Catatan Jangan Lebih Dari 20", "Error", HEIGHT);
         else {

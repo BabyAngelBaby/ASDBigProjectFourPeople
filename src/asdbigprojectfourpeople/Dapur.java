@@ -139,8 +139,23 @@ public class Dapur extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) dapurTabel.getModel();
         model.removeRow(0);
         
+        // NEW THREAD ITU AGAR POP UP BISA MUNCUL SECARA BERSAMAAN DI KEDUA WIINDOW
+        // beritahu ke kasir bahwa data atas nama dan pesanan siapa
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JOptionPane.showMessageDialog(Kasir.kasirRootPane, "Pesanan " + temp[1] + " atas nama " + temp[0] + " dengan harga Rp" +Util.hargaDariNamaPesanan(temp[1])+" silahkan di ambil");
+            }
+        }).start();
+        
         // beritahu ke dapur bahwa data berhasil di delete
-        JOptionPane.showMessageDialog(rootPane, "Data Berhasil Dicatat di Database");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JOptionPane.showMessageDialog(rootPane, "Data Berhasil Dicatat di Database");
+            }
+        }).start();
+        
 
     }//GEN-LAST:event_buttonPopDapurActionPerformed
 

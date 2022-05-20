@@ -43,6 +43,19 @@ public class MyDataDatabase {
             }
         }
     }
+    
+    public String[][] searchData(String find) {
+        MyDataDatabase result = new MyDataDatabase(1,8);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < data[i].length; j++) {
+                if (data[i][j].contains(find)) {
+                    result.push(data[i]);
+                    break;
+                }
+            }
+        }
+        return result.getData();
+    }
 
     public String[][] getData() {
         return data;
